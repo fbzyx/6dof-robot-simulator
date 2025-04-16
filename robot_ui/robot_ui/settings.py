@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # CUSTOM
     "robot",
+    # THIRD
+    "django_htmx",
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -51,6 +55,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Htmx
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = "robot_ui.urls"
@@ -124,3 +130,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

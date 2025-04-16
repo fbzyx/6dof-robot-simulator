@@ -1,12 +1,51 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django_htmx.http import trigger_client_event
+from .forms import PositionForm
+from .models import Position
 from .utils.jacobi import forward_kinematics
 import json
 
 
 def main_view(request):
-    return render(request, "index.html")
+    objs = Position.objects.all()
+    context = {"form": PositionForm(), "objs": objs}
+    return render(request, "index.html", context=context)
+
+
+def create_position(request):
+    if request.htmx:
+        if request.POST:
+            form = PositionForm(data=request.POST)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.save()
+
+                form = PositionForm(instance=obj)
+
+            context = {"form": form}
+            ret = render(request, "partials/form.html", context)
+
+            return trigger_client_event(
+                ret,
+                "reload_list",
+                params={},
+                after="settle",
+            )
+
+
+def delete_position(request, id):
+    Position.objects.get(id=id).delete()
+    objs = Position.objects.all()
+    context = {"objs": objs}
+    return render(request, "partials/list.html", context)
+
+
+def list_positions(request):
+    objs = Position.objects.all()
+    context = {"objs": objs}
+    return render(request, "partials/list.html", context)
 
 
 def main_view2(request):
@@ -32,8 +71,7 @@ def get_matrix(request):
 @csrf_exempt
 def jacobi_api(request):
     if request.method == "POST":
-
         data = json.loads(request.POST["data"])
         joint_angles = data.get("joint_angles", [])
         j = forward_kinematics(joint_angles)
-        return JsonResponse({"jacobi": j.tolist()})
+        return JsonResponse({"matrix": j.tolist()})

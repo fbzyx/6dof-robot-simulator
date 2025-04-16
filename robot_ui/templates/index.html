@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,12 +20,22 @@
             border-radius: 5px;
             white-space: pre-wrap;
             word-wrap: break-word;
-            min-height:300px;
+            height:300px;
+            overflow-y: scroll;
+        }
+        #position-list-container{
+            height:300px;
+            overflow-y: scroll;
         }
     </style>
   </head>
-  <body>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-light bg-gradient">
     <div class="">
+        <div class="row">
+            <div class="col-12">
+                <h5></h5>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8">
                 <h3>Simulation</h3>
@@ -35,48 +46,58 @@
                 <h3>Controls</h3>
                 <div style="width:300px;">
                     <div class="row">
-                        <div class="col-12">
-                            <label for="range0" class="form-label">Joint angle 0</label>
-                            <input type="range" id="range0" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">
-                        </div>
-                        <div class="col-12">
-                            <label for="range1" class="form-label">Joint angle 1</label>
-                            <input type="range" id="range1" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">
-                        </div>
-                        <div class="col-12">
-                            <label for="range2" class="form-label">Joint angle 2</label>
-                            <input type="range" id="range2" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">
-                        </div>
-                        <div class="col-12">
-                            <label for="range3" class="form-label">Joint angle 3</label>
-                            <input type="range" id="range3" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">
-                        </div>
-                        <div class="col-12">
-                            <label for="range4" class="form-label">Joint angle 4</label>
-                            <input type="range" id="range4" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">
-                        </div>
-                        <div class="col-12">
-                            <label for="range5" class="form-label">Joint angle 5</label>
-                            <input type="range" id="range5" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">
-                        </div>
-                        <div>
-                            <button class="btn btn-success">Save position</button>
-                        </div>
+                        {% include 'partials/form.html' %}
+<!--                        <div class="col-12">-->
+<!--                            <label for="range0" class="form-label">Joint angle 0</label>-->
+<!--                            <input type="range" id="range0" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
+<!--                        </div>-->
+<!--                        <div class="col-12">-->
+<!--                            <label for="range1" class="form-label">Joint angle 1</label>-->
+<!--                            <input type="range" id="range1" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
+<!--                        </div>-->
+<!--                        <div class="col-12">-->
+<!--                            <label for="range2" class="form-label">Joint angle 2</label>-->
+<!--                            <input type="range" id="range2" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
+<!--                        </div>-->
+<!--                        <div class="col-12">-->
+<!--                            <label for="range3" class="form-label">Joint angle 3</label>-->
+<!--                            <input type="range" id="range3" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
+<!--                        </div>-->
+<!--                        <div class="col-12">-->
+<!--                            <label for="range4" class="form-label">Joint angle 4</label>-->
+<!--                            <input type="range" id="range4" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
+<!--                        </div>-->
+<!--                        <div class="col-12">-->
+<!--                            <label for="range5" class="form-label">Joint angle 5</label>-->
+<!--                            <input type="range" id="range5" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <button class="btn btn-success">Save position</button>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <h3>Jacobi matrix</h3>
+            <div class="col-md-6">
+                <h3>Denavit-Hartenberg-Transformation</h3>
                 <div id="jacobi-matrix-display">
                     <pre id="json-output"></pre>
                 </div>
+            </div>
+            <div class="col-md-4">
+                <h3>Positions</h3>
+                <div id="position-list-container" class="pe-2">
+                    {% include 'partials/list.html' %}
+                </div>
+            </div>
+            <div class="col-md-2">
             </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
     <script>
         var scene = new THREE.Scene();
 
@@ -89,10 +110,9 @@
         var axesHelper = new THREE.AxesHelper(3);
         scene.add( axesHelper );
 
-
         // Camera
         var aspect = window.innerWidth / window.innerHeight;
-        var camera = new THREE.PerspectiveCamera( 60, aspect, 0.1, 1000 );
+        var camera = new THREE.PerspectiveCamera( 80, aspect, 0.1, 1000 );
         camera.position.z = 5;
         camera.position.x = 5;
         camera.position.y = 5;
@@ -265,11 +285,15 @@
                 data: JSON.stringify({ joint_angles: joint_angles})
               },
               function(data, status){
-                console.log('Jacobian:', data);
                 document.getElementById("json-output").textContent = JSON.stringify(data, null, 2);
               }
             );
         }
+    </script>
+    <script>
+        $("body").on("reload_list", function() {
+          htmx.ajax('GET', 'list-positions/', {target:'#positions-list-id', swap:'outerHTML'})
+        });
     </script>
   </body>
 </html>
