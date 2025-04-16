@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>6-DOF 3D Robot Arm</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+    #ui {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px;
+      border-radius: 10px;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<div id="ui">
+  <label>Joint Angles (rad):</label><br/>
+  <input id="angles" value="0.1,0.2,0.3,0.1,0.2,0.0" size="40"><br/>
+  <label>Link Lengths (m):</label><br/>
+  <input id="lengths" value="0.4,0.25,0.25,0.4,0.0,0.1" size="40"><br/>
+  <button onclick="updateRobot()">Update Robot</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.145/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.145/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xf0f0f0);
+
+
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(2, 2, 2);
+
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.05;
+  controls.enableZoom = true;
+  controls.enablePan = true;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+
+  scene.add(new THREE.AxesHelper(1));
+  scene.add(new THREE.GridHelper(2, 20));
+
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(1, 2, 2);
+  scene.add(light);
+
+  const linkMaterial = new THREE.MeshStandardMaterial({ color: 0x0077ff });
+  const linkMeshes = [];
+
+  function createLink(length = 0.2) {
+    const geom = new THREE.BoxGeometry(0.05, 0.05, length);
+    geom.translate(0, 0, length / 2); // make link extend along Z+
+    return new THREE.Mesh(geom, linkMaterial);
+  }
+
+  function dhMatrix(a, alpha, d, theta) {
+    const ct = Math.cos(theta), st = Math.sin(theta);
+    const ca = Math.cos(alpha), sa = Math.sin(alpha);
+    const m = new THREE.Matrix4();
+    m.set(
+      ct, -st * ca, st * sa, a * ct,
+      st, ct * ca, -ct * sa, a * st,
+      0, sa, ca, d,
+      0, 0, 0, 1
+    );
+    return m;
+  }
+
+  function initRobot(linkLengths) {
+    while (linkMeshes.length > 0) {
+      scene.remove(linkMeshes.pop());
+    }
+
+    let parent = scene;
+    for (let i = 0; i < linkLengths.length; i++) {
+      const link = createLink(linkLengths[i]);
+      link.matrixAutoUpdate = false;
+
+      parent.add(link); // link is child of previous
+      linkMeshes.push(link);
+      parent = link;
+    }
+  }
+
+function updateRobotPose(jointAngles, linkLengths) {
+  const dh = [
+    [0, Math.PI / 2, linkLengths[0], jointAngles[0]],
+    [linkLengths[1], 0, 0, jointAngles[1]],
+    [linkLengths[2], 0, 0, jointAngles[2]],
+    [0, Math.PI / 2, linkLengths[3], jointAngles[3]],
+    [0, -Math.PI / 2, 0, jointAngles[4]],
+    [0, 0, linkLengths[5], jointAngles[5]]
+  ];
+
+  for (let i = 0; i < 6; i++) {
+    const A = dhMatrix(...dh[i]);
+    linkMeshes[i].matrix.identity();     // clear old matrix
+    linkMeshes[i].applyMatrix4(A);       // apply local transform
+  }
+}
+
+  function updateRobot() {
+    const angles = document.getElementById("angles").value.split(",").map(Number);
+    const lengths = document.getElementById("lengths").value.split(",").map(Number);
+
+    if (angles.length !== 6 || lengths.length !== 6) {
+      alert("Please enter 6 values each.");
+      return;
+    }
+
+    fetch("/api/jacobian/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ joint_angles: angles, link_lengths: lengths })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Jacobian:", data.jacobian);
+      updateRobotPose(angles, lengths);
+    })
+    .catch(console.error);
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  initRobot([0.4, 0.25, 0.25, 0.4, 0.0, 0.1]);
+</script>
+</body>
+</html>

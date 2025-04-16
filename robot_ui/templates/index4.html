@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Robot Arm Animation</title>
+  <style>
+    body { margin: 0; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.145/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.145/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js" integrity="sha512-WoO4Ih0CDOSLYafy22wZD/mcJ7k0ESLqtQsFa6zFKnEUrbtuGU+GkLtVhgt93xa2qewG5gKEC6CWlN8OaCTSVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <script>
+    var scene = new THREE.Scene();
+
+  const size = 10;
+  const divisions = 10;
+
+    const gridHelper = new THREE.GridHelper( size, divisions );
+    scene.add( gridHelper );
+
+    // Camera
+    var aspect = window.innerWidth / window.innerHeight;
+    var camera = new THREE.PerspectiveCamera( 60, aspect, 0.1, 1000 );
+    camera.position.z = 5;
+    camera.position.x = 5;
+    camera.position.y = 5;
+    camera.lookAt(0, 1.5, 0);
+    camera.updateProjectionMatrix();
+
+    // Renderer
+    var renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+
+    // Model:
+    var material0 = new THREE.MeshStandardMaterial();
+    material0.color.setHex(0xc52828)
+    var material1 = new THREE.MeshStandardMaterial();
+    material1.color.setHex(0x42c528)
+    var material2 = new THREE.MeshStandardMaterial();
+    material2.color.setHex(0xdde800)
+    var material3 = new THREE.MeshStandardMaterial();
+    material3.color.setHex(0x009be8)
+    var material4 = new THREE.MeshStandardMaterial();
+    material4.color.setHex(0xe800e4)
+    var material5 = new THREE.MeshStandardMaterial();
+    material5.color.setHex(0xc52828)
+
+
+    // part 0
+    var geometry = new THREE.BoxGeometry( 2, 1, 2 );
+    var part0 = new THREE.Mesh( geometry, material0 );
+    scene.add( part0 );
+
+    // part 1
+    var part1 = new THREE.Object3D();
+    part1.translateY(0.5);
+    part0.add(part1);
+
+    geometry = new THREE.BoxGeometry(0.5, 2, 0.5);
+    var arm_part = new THREE.Mesh( geometry, material1 );
+    arm_part.translateY(1);
+    part1.add(arm_part);
+    
+    // part 2
+
+    var part2 = new THREE.Object3D();
+    part2.translateY(2);
+    //part2.translateZ(0.5);
+    part1.add(part2);
+
+    geometry = new THREE.BoxGeometry(0.5, 2, 0.5);
+    var arm_part = new THREE.Mesh( geometry, material2 );
+    arm_part.translateY(1);
+    part2.add(arm_part);
+
+
+    // part 3
+
+    var part3 = new THREE.Object3D();
+    part3.translateY(2);
+    part2.add(part3);
+
+    geometry = new THREE.BoxGeometry(0.5, 2, 0.5);
+    var arm_part = new THREE.Mesh( geometry, material3 );
+    arm_part.translateY(1);
+    part3.add(arm_part);
+
+
+    // part 4
+
+    var part4 = new THREE.Object3D();
+    part4.translateY(2);
+    part3.add(part4);
+
+    geometry = new THREE.BoxGeometry(0.5, 1, 0.5);
+    var arm_part = new THREE.Mesh( geometry, material4 );
+    arm_part.translateY(0.5);
+    part4.add(arm_part);
+
+    // part 5
+
+    var part5 = new THREE.Object3D();
+    part5.translateY(1);
+    part4.add(part5);
+
+    geometry = new THREE.BoxGeometry(0.5, 1, 0.5);
+    var arm_part = new THREE.Mesh( geometry, material5 );
+    arm_part.translateY(0.5);
+    part5.add(arm_part);
+
+
+    // Light
+    var light = new THREE.DirectionalLight(0xffffff, 1.0);
+    light.position.set(10, 5, 10);
+    light.target = part0;
+    scene.add(light);
+
+    light = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(light);
+
+
+    // Options (DAT.GUI)
+    var options = {
+      part0: -130,
+      part1: -36,
+      part2: 46,
+      part3: 65,
+      part4: -25,
+      part5: 57,
+    };
+
+
+    // DAT.GUI Related Stuff
+
+    var gui = new dat.GUI();
+    gui.add(options, 'part0', -180, 180).listen();
+    gui.add(options, 'part1', -180, 180).listen();
+    gui.add(options, 'part2', -180, 180).listen();
+    gui.add(options, 'part3', -180, 180).listen();
+    gui.add(options, 'part4', -180, 180).listen();
+    gui.add(options, 'part5', -180, 180).listen();
+
+    // Rendering
+    var zAxis = new THREE.Vector3(0, 0, 1);
+    var yAxis = new THREE.Vector3(0, 1, 0);
+    var xAxis = new THREE.Vector3(1, 0, 0);
+
+    var render = function () {
+      requestAnimationFrame( render );
+
+      // Rotate joints
+      part0.setRotationFromAxisAngle(yAxis, options.part0 * Math.PI / 180)
+      part1.setRotationFromAxisAngle(zAxis, options.part1 * Math.PI / 180);
+      part2.setRotationFromAxisAngle(zAxis, options.part2 * Math.PI / 180);
+      part3.setRotationFromAxisAngle(zAxis, options.part3 * Math.PI / 180);
+      part4.setRotationFromAxisAngle(yAxis, options.part4 * Math.PI / 180);
+      part5.setRotationFromAxisAngle(zAxis, options.part5 * Math.PI / 180);
+
+      // Render
+      renderer.render( scene, camera );
+    };
+
+    render();
+  </script>
+</body>
+</html>
