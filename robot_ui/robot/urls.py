@@ -10,7 +10,7 @@ from .views import (
     create_position,
     delete_position,
     list_positions,
-    robot_parameters
+    robot_parameters,
 )
 
 app_name = "robot"
@@ -22,6 +22,7 @@ urlpatterns = [
     path("create-position/", create_position, name="create-position"),
     path("robot-parameters/", robot_parameters, name="robot-parameters"),
     path("delete-position/<int:id>/", delete_position, name="delete-position"),
+    # test
     path("test2/", main_view2, name="main-view2"),
     path("test3/", main_view3, name="main-view3"),
     path("test4/", main_view4, name="main-view4"),

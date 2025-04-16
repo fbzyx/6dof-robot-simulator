@@ -1,4 +1,5 @@
 {% load crispy_forms_tags %}
+{% load l10n %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -61,7 +62,61 @@
             <div class="col-md-4 border p-3">
                 <h3>Robot parameters</h3>
                 <button class="btn btn-sm btn-success bg-gradient" data-bs-toggle="modal" data-bs-target="#modal-lg-id">Change parameters</button>
-                <div></div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <th class="bg-light"></th>
+                            <th class="bg-light">Angle</th>
+                            <th class="bg-light">Max Angle</th>
+                            <th class="bg-light">Min Angle</th>
+                            <th class="bg-light">Length</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="bg-light">Axis0</th>
+                                <td class="bg-light">{{ params.angle0 }}</td>
+                                <td class="bg-light">{{ params.angle0_max }}</td>
+                                <td class="bg-light">{{ params.angle0_min }}</td>
+                                <td class="bg-light">{{ params.len0 }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Axis1</th>
+                                <td class="bg-light">{{ params.angle1 }}</td>
+                                <td class="bg-light">{{ params.angle1_max }}</td>
+                                <td class="bg-light">{{ params.angle1_min }}</td>
+                                <td class="bg-light">{{ params.len1 }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Axis2</th>
+                                <td class="bg-light">{{ params.angle2 }}</td>
+                                <td class="bg-light">{{ params.angle2_max }}</td>
+                                <td class="bg-light">{{ params.angle2_min }}</td>
+                                <td class="bg-light">{{ params.len2 }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Axis3</th>
+                                <td class="bg-light">{{ params.angle3 }}</td>
+                                <td class="bg-light">{{ params.angle3_max }}</td>
+                                <td class="bg-light">{{ params.angle3_min }}</td>
+                                <td class="bg-light">{{ params.len3 }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Axis4</th>
+                                <td class="bg-light">{{ params.angle4 }}</td>
+                                <td class="bg-light">{{ params.angle4_max }}</td>
+                                <td class="bg-light">{{ params.angle4_min }}</td>
+                                <td class="bg-light">{{ params.len4 }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Axis5</th>
+                                <td class="bg-light">{{ params.angle5 }}</td>
+                                <td class="bg-light">{{ params.angle5_max }}</td>
+                                <td class="bg-light">{{ params.angle5_min }}</td>
+                                <td class="bg-light">{{ params.len5 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-md-4 border p-3">
                 <h3>Positions</h3>
@@ -76,7 +131,18 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
-    <script>
+    {% localize off %}
+    <script data-angle0="{{ params.angle0 }}" data-angle1="{{ params.angle1 }}" data-angle2="{{ params.angle2 }}" data-angle3="{{ params.angle3 }}" data-angle4="{{ params.angle4 }}" data-angle5="{{ params.angle5 }}">
+    {% endlocalize %}
+        const data = document.currentScript.dataset;
+        var angle0 = parseInt(data.angle0);
+        var angle1 = parseInt(data.angle1);
+        var angle2 = parseInt(data.angle2);
+        var angle3 = parseInt(data.angle3);
+        var angle4 = parseInt(data.angle4);
+        var angle5 = parseInt(data.angle5);
+
+
         var scene = new THREE.Scene();
 
         const size = 10;
@@ -204,12 +270,12 @@
 
         // Options
         var options = {
-          part0: -130,
-          part1: -36,
-          part2: 46,
-          part3: 65,
-          part4: -25,
-          part5: 57,
+          part0: angle0,
+          part1: angle1,
+          part2: angle2,
+          part3: angle3,
+          part4: angle4,
+          part5: angle5,
         };
 
 
