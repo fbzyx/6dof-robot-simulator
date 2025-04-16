@@ -1,0 +1,17 @@
+{% load crispy_forms_tags %}
+<!-- BEGIN  modal -->
+<div class="modal fade" id="modal-lg-id" tabindex="-1" role="dialog" aria-hidden="true" data-bs-keyboard="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content" id="lg-modal-content-id">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body m-3">
+                {% crispy form_params %}
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END  modal -->

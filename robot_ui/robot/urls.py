@@ -9,7 +9,8 @@ from .views import (
     jacobi_api,
     create_position,
     delete_position,
-    list_positions
+    list_positions,
+    robot_parameters
 )
 
 app_name = "robot"
@@ -19,6 +20,7 @@ urlpatterns = [
     path("", main_view, name="main-view"),
     path("list-positions/", list_positions, name="list-positions"),
     path("create-position/", create_position, name="create-position"),
+    path("robot-parameters/", robot_parameters, name="robot-parameters"),
     path("delete-position/<int:id>/", delete_position, name="delete-position"),
     path("test2/", main_view2, name="main-view2"),
     path("test3/", main_view3, name="main-view3"),

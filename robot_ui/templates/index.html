@@ -30,71 +30,49 @@
     </style>
   </head>
   <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-light bg-gradient">
-    <div class="">
+    <div class="" style="max-width:1200px;margin-left:auto; margin-right:auto;">
         <div class="row">
             <div class="col-12">
                 <h5></h5>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 border p-3">
                 <h3>Simulation</h3>
                 <div id="three-container" style="height:400px">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 border p-3">
                 <h3>Controls</h3>
-                <div style="width:300px;">
+                <div style="">
                     <div class="row">
                         {% include 'partials/form.html' %}
-<!--                        <div class="col-12">-->
-<!--                            <label for="range0" class="form-label">Joint angle 0</label>-->
-<!--                            <input type="range" id="range0" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
-<!--                        </div>-->
-<!--                        <div class="col-12">-->
-<!--                            <label for="range1" class="form-label">Joint angle 1</label>-->
-<!--                            <input type="range" id="range1" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
-<!--                        </div>-->
-<!--                        <div class="col-12">-->
-<!--                            <label for="range2" class="form-label">Joint angle 2</label>-->
-<!--                            <input type="range" id="range2" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
-<!--                        </div>-->
-<!--                        <div class="col-12">-->
-<!--                            <label for="range3" class="form-label">Joint angle 3</label>-->
-<!--                            <input type="range" id="range3" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
-<!--                        </div>-->
-<!--                        <div class="col-12">-->
-<!--                            <label for="range4" class="form-label">Joint angle 4</label>-->
-<!--                            <input type="range" id="range4" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
-<!--                        </div>-->
-<!--                        <div class="col-12">-->
-<!--                            <label for="range5" class="form-label">Joint angle 5</label>-->
-<!--                            <input type="range" id="range5" class="form-range" min="-180" max="180" step="1" onchange="update_matrix()">-->
-<!--                        </div>-->
-<!--                        <div>-->
-<!--                            <button class="btn btn-success">Save position</button>-->
-<!--                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row mt-5">
+            <div class="col-md-4 border p-3">
                 <h3>Denavit-Hartenberg-Transformation</h3>
                 <div id="jacobi-matrix-display">
                     <pre id="json-output"></pre>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 border p-3">
+                <h3>Robot parameters</h3>
+                <button class="btn btn-sm btn-success bg-gradient" data-bs-toggle="modal" data-bs-target="#modal-lg-id">Change parameters</button>
+                <div></div>
+            </div>
+            <div class="col-md-4 border p-3">
                 <h3>Positions</h3>
                 <div id="position-list-container" class="pe-2">
                     {% include 'partials/list.html' %}
                 </div>
             </div>
-            <div class="col-md-2">
-            </div>
+
         </div>
     </div>
+    {% include 'partials/modal.html' %}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>

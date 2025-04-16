@@ -1,11 +1,11 @@
-<div id="positions-list-id" style="width:300px;">
-    <table class="table">
+<div id="positions-list-id" style="">
+    <table class="table bg-light">
     {% for o in objs%}
-        <tr>
-            <td>
+        <tr class="">
+            <td class="bg-light">
                 #{{ o.id }}
-                <a href="" hx-post="{{ o.delete_obj }}" hx-target="#positions-list-id" hx-swap="outerHTML" class="float-end btn btn-sm btn-danger">delete</a>
-                <button class="btn btn-sm btn-success">Go to position</button>
+                <a href="" hx-post="{{ o.delete_obj }}" hx-target="#positions-list-id" hx-swap="outerHTML" class="float-end btn btn-sm btn-danger bg-gradient">Delete</a>
+                <button class="btn btn-sm btn-success bg-gradient">Go to position</button>
             </td>
         </tr>
     {% endfor %}
