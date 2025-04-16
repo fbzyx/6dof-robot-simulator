@@ -5,7 +5,8 @@
             <td class="bg-light">
                 #{{ o.id }}
                 <a href="" hx-post="{{ o.delete_obj }}" hx-target="#positions-list-id" hx-swap="outerHTML" class="float-end btn btn-sm btn-danger bg-gradient">Delete</a>
-                <button class="btn btn-sm btn-success bg-gradient">Go to position</button>
+<!--                <button class="btn btn-sm btn-success bg-gradient" value="[{{ o.angle0 }}, {{ o.angle1 }}, {{ o.angle2 }}, {{ o.angle3 }}, {{ o.angle4 }}, {{ o.angle5 }},]">Go to position</button>-->
+                <button class="btn btn-sm btn-success bg-gradient" value="{{ o.id }}" data-angles="[{{ o.angle0 }}, {{ o.angle1 }}, {{ o.angle2 }}, {{ o.angle3 }}, {{ o.angle4 }}, {{ o.angle5 }},]" onclick="get_path_for_position(this.value)">Go to position</button>
             </td>
         </tr>
     {% endfor %}

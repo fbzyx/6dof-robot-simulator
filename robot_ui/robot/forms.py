@@ -237,8 +237,8 @@ class RobotForm(forms.ModelForm):
             raise ValidationError("Values out of range (Angle3)")
 
         angle4 = self.cleaned_data.get("angle4")
-        angle4_min = self.cleaned_data.get("angle0_min")
-        angle4_max = self.cleaned_data.get("angle0_max")
+        angle4_min = self.cleaned_data.get("angle4_min")
+        angle4_max = self.cleaned_data.get("angle4_max")
 
         if not angle4_min <= angle4 <= angle4_max:
             raise ValidationError("Values out of range (Angle4)")

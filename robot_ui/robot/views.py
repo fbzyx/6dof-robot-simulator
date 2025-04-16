@@ -8,7 +8,8 @@ from django_htmx.http import (
 )
 from .forms import PositionForm, RobotForm
 from .models import Position, Robot
-from .utils.jacobi import forward_kinematics
+from .utils.dh import forward_kinematics
+from .utils.interpolate import get_interpolated_matrix_data
 import json
 
 
@@ -94,9 +95,35 @@ def get_matrix(request):
 
 
 @csrf_exempt
-def jacobi_api(request):
+def dh_matrix_api(request):
     if request.method == "POST":
         data = json.loads(request.POST["data"])
         joint_angles = data.get("joint_angles", [])
         j = forward_kinematics(joint_angles)
         return JsonResponse({"matrix": j.tolist()})
+
+
+@csrf_exempt
+def get_matrix_path(request):
+    print(request.POST)
+    if request.method == "POST":
+        data = json.loads(request.POST["data"])
+        joint_angles = data.get("joint_angles", [])
+        target_pos_id = data.get("target_pos_id", None)
+
+        pos_obj = Position.objects.get(id=target_pos_id)
+
+        target_pos_angles = [
+            pos_obj.angle0,
+            pos_obj.angle1,
+            pos_obj.angle2,
+            pos_obj.angle3,
+            pos_obj.angle4,
+            pos_obj.angle5,
+        ]
+
+        path_matrix = get_interpolated_matrix_data(
+            joint_angles, target_pos_angles
+        )
+        return JsonResponse({"path": path_matrix})
+    return JsonResponse({})

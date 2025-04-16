@@ -11,10 +11,14 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.145/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js" integrity="sha512-WoO4Ih0CDOSLYafy22wZD/mcJ7k0ESLqtQsFa6zFKnEUrbtuGU+GkLtVhgt93xa2qewG5gKEC6CWlN8OaCTSVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
+        html {
+
+        }
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
         }
+
         pre {
             background-color: #f4f4f4;
             padding: 10px;
@@ -314,7 +318,8 @@
         render();
     </script>
     <script>
-        function update_matrix(){
+
+        function get_range_inputs_values(){
             var range0 = parseInt(document.getElementById("range0").value, 10);
             var range1 = parseInt(document.getElementById("range1").value, 10);
             var range2 = parseInt(document.getElementById("range2").value, 10);
@@ -322,8 +327,16 @@
             var range4 = parseInt(document.getElementById("range4").value, 10);
             var range5 = parseInt(document.getElementById("range5").value, 10);
 
-            const joint_angles = [range0, range1, range2, range3, range4, range5];
-            $.post("/api/jacobian/",
+            var joint_angles = [range0, range1, range2, range3, range4, range5];
+
+            return joint_angles;
+
+        }
+        function update_matrix(){
+
+            var joint_angles = get_range_inputs_values();
+
+            $.post("/api/dhmatrix/",
               {
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify({ joint_angles: joint_angles})
@@ -333,6 +346,25 @@
               }
             );
         }
+
+        function get_path_for_position(pos_id){
+
+            var current_position = get_range_inputs_values();
+
+            $.post("/get-matrix-path/",
+              {
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify({ joint_angles: current_position, target_pos_id: pos_id})
+              },
+              function(data, status){
+                document.getElementById("json-output").textContent = JSON.stringify(data, null, 2);
+              }
+            );
+
+
+
+        }
+
     </script>
     <script>
         $("body").on("reload_list", function() {
