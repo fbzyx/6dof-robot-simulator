@@ -13,7 +13,9 @@ def interpolate_joints(start_angles, end_angles, steps=100):
     return trajectory
 
 
-def get_interpolated_matrix_data(start_angles_deg, end_angles_deg):
+def get_interpolated_matrix_data(
+    start_angles_deg, end_angles_deg, robot_params_a, robot_params_d
+):
     interpolated_data = []
     start_angles_rad = np.radians(start_angles_deg)
     end_angles_rad = np.radians(end_angles_deg)
@@ -21,12 +23,7 @@ def get_interpolated_matrix_data(start_angles_deg, end_angles_deg):
     trajectory = interpolate_joints(start_angles_rad, end_angles_rad, steps=20)
 
     for i, angles in enumerate(trajectory):
-        T = forward_kinematics(angles)
+        T = forward_kinematics(angles, robot_params_a, robot_params_d)
         interpolated_data.append(T.tolist())
 
     return interpolated_data
-
-
-# start_angles_deg = [0, 0, 0, 0, 0, 0]
-# end_angles_deg = [30, 45, -30, 60, -45, 90]
-# get_interpolated_matrix_data(start_angles_deg, end_angles_deg)

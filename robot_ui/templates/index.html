@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-md-8 border p-3">
                 <h4>6-DOF Robot simulation</h4>
-                <div id="three-container" style="height:400px">
+                <div id="three-container" style="height:450px">
                 </div>
             </div>
             <div class="col-md-4 border p-3">
@@ -57,23 +57,24 @@
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-md-4 border p-3">
+            <div class="col-md-3 border p-3">
                 <h4>Denavit-Hartenberg-Transformation</h4>
                 <div id="jacobi-matrix-display" class="small">
                     <pre id="json-output"></pre>
                 </div>
             </div>
-            <div class="col-md-4 border p-3">
+            <div class="col-md-6 border p-3">
                 <h4>Robot parameters</h4>
                 <button class="btn btn-sm btn-success bg-gradient" data-bs-toggle="modal" data-bs-target="#modal-lg-id">Change parameters</button>
                 <div class="small">
                     <table class="table">
                         <thead>
                             <th class="bg-light"></th>
-                            <th class="bg-light">Angle</th>
-                            <th class="bg-light">Max Angle</th>
-                            <th class="bg-light">Min Angle</th>
-                            <th class="bg-light">Length</th>
+                            <th class="bg-light">angle</th>
+                            <th class="bg-light">max angle</th>
+                            <th class="bg-light">min angle</th>
+                            <th class="bg-light">a</th>
+                            <th class="bg-light">d</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -81,6 +82,7 @@
                                 <td class="bg-light">{{ params.angle0 }}</td>
                                 <td class="bg-light">{{ params.angle0_max }}</td>
                                 <td class="bg-light">{{ params.angle0_min }}</td>
+                                <td class="bg-light">{{ params.a0 }}</td>
                                 <td class="bg-light">{{ params.len0 }}</td>
                             </tr>
                             <tr>
@@ -88,6 +90,7 @@
                                 <td class="bg-light">{{ params.angle1 }}</td>
                                 <td class="bg-light">{{ params.angle1_max }}</td>
                                 <td class="bg-light">{{ params.angle1_min }}</td>
+                                <td class="bg-light">{{ params.a1 }}</td>
                                 <td class="bg-light">{{ params.len1 }}</td>
                             </tr>
                             <tr>
@@ -95,6 +98,7 @@
                                 <td class="bg-light">{{ params.angle2 }}</td>
                                 <td class="bg-light">{{ params.angle2_max }}</td>
                                 <td class="bg-light">{{ params.angle2_min }}</td>
+                                <td class="bg-light">{{ params.a2 }}</td>
                                 <td class="bg-light">{{ params.len2 }}</td>
                             </tr>
                             <tr>
@@ -102,6 +106,7 @@
                                 <td class="bg-light">{{ params.angle3 }}</td>
                                 <td class="bg-light">{{ params.angle3_max }}</td>
                                 <td class="bg-light">{{ params.angle3_min }}</td>
+                                <td class="bg-light">{{ params.a3 }}</td>
                                 <td class="bg-light">{{ params.len3 }}</td>
                             </tr>
                             <tr>
@@ -109,6 +114,7 @@
                                 <td class="bg-light">{{ params.angle4 }}</td>
                                 <td class="bg-light">{{ params.angle4_max }}</td>
                                 <td class="bg-light">{{ params.angle4_min }}</td>
+                                <td class="bg-light">{{ params.a4 }}</td>
                                 <td class="bg-light">{{ params.len4 }}</td>
                             </tr>
                             <tr>
@@ -116,13 +122,14 @@
                                 <td class="bg-light">{{ params.angle5 }}</td>
                                 <td class="bg-light">{{ params.angle5_max }}</td>
                                 <td class="bg-light">{{ params.angle5_min }}</td>
+                                <td class="bg-light">{{ params.a5 }}</td>
                                 <td class="bg-light">{{ params.len5 }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-md-4 border p-3">
+            <div class="col-md-3 border p-3">
                 <h4>Positions</h4>
                 <div id="position-list-container" class="pe-2 small">
                     {% include 'partials/list.html' %}

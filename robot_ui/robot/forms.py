@@ -102,25 +102,25 @@ class PositionForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         params = Robot.objects.all().first()
-        # self.fields["angle0"].widget["attrs"]["min_value"] = params.angle0_min
-        self.fields["angle0"].widget.attrs["value"] = params.angle0
-        self.fields["angle0"].widget.attrs["min"] = params.angle0_min
-        self.fields["angle0"].widget.attrs["max"] = params.angle0_max
-        self.fields["angle1"].widget.attrs["value"] = params.angle1
-        self.fields["angle1"].widget.attrs["min"] = params.angle1_min
-        self.fields["angle1"].widget.attrs["max"] = params.angle1_max
-        self.fields["angle2"].widget.attrs["value"] = params.angle2
-        self.fields["angle2"].widget.attrs["min"] = params.angle2_min
-        self.fields["angle2"].widget.attrs["max"] = params.angle2_max
-        self.fields["angle3"].widget.attrs["value"] = params.angle3
-        self.fields["angle3"].widget.attrs["min"] = params.angle3_min
-        self.fields["angle3"].widget.attrs["max"] = params.angle3_max
-        self.fields["angle4"].widget.attrs["value"] = params.angle4
-        self.fields["angle4"].widget.attrs["min"] = params.angle4_min
-        self.fields["angle4"].widget.attrs["max"] = params.angle4_max
-        self.fields["angle5"].widget.attrs["value"] = params.angle5
-        self.fields["angle5"].widget.attrs["min"] = params.angle5_min
-        self.fields["angle5"].widget.attrs["max"] = params.angle5_max
+        if params:
+            self.fields["angle0"].widget.attrs["value"] = params.angle0
+            self.fields["angle0"].widget.attrs["min"] = params.angle0_min
+            self.fields["angle0"].widget.attrs["max"] = params.angle0_max
+            self.fields["angle1"].widget.attrs["value"] = params.angle1
+            self.fields["angle1"].widget.attrs["min"] = params.angle1_min
+            self.fields["angle1"].widget.attrs["max"] = params.angle1_max
+            self.fields["angle2"].widget.attrs["value"] = params.angle2
+            self.fields["angle2"].widget.attrs["min"] = params.angle2_min
+            self.fields["angle2"].widget.attrs["max"] = params.angle2_max
+            self.fields["angle3"].widget.attrs["value"] = params.angle3
+            self.fields["angle3"].widget.attrs["min"] = params.angle3_min
+            self.fields["angle3"].widget.attrs["max"] = params.angle3_max
+            self.fields["angle4"].widget.attrs["value"] = params.angle4
+            self.fields["angle4"].widget.attrs["min"] = params.angle4_min
+            self.fields["angle4"].widget.attrs["max"] = params.angle4_max
+            self.fields["angle5"].widget.attrs["value"] = params.angle5
+            self.fields["angle5"].widget.attrs["min"] = params.angle5_min
+            self.fields["angle5"].widget.attrs["max"] = params.angle5_max
 
         self.helper = FormHelper()
         self.helper.attrs = {
@@ -181,44 +181,50 @@ class RobotForm(forms.ModelForm):
         }
         self.helper.layout = Layout(
             Row(
-                Column("angle0", css_class="col-md-3"),
-                Column("angle0_min", css_class="col-md-3"),
-                Column("angle0_max", css_class="col-md-3"),
+                Column("angle0", css_class="col-md-2"),
+                Column("angle0_min", css_class="col-md-2"),
+                Column("angle0_max", css_class="col-md-2"),
+                Column("a0", css_class="col-md-2"),
                 Column("len0", css_class="col-md-3"),
                 css_class="form-row",
             ),
             Row(
-                Column("angle1", css_class="col-md-3"),
-                Column("angle1_min", css_class="col-md-3"),
-                Column("angle1_max", css_class="col-md-3"),
+                Column("angle1", css_class="col-md-2"),
+                Column("angle1_min", css_class="col-md-2"),
+                Column("angle1_max", css_class="col-md-2"),
+                Column("a1", css_class="col-md-2"),
                 Column("len1", css_class="col-md-3"),
                 css_class="form-row",
             ),
             Row(
-                Column("angle2", css_class="col-md-3"),
-                Column("angle2_min", css_class="col-md-3"),
-                Column("angle2_max", css_class="col-md-3"),
+                Column("angle2", css_class="col-md-2"),
+                Column("angle2_min", css_class="col-md-2"),
+                Column("angle2_max", css_class="col-md-2"),
+                Column("a2", css_class="col-md-2"),
                 Column("len2", css_class="col-md-3"),
                 css_class="form-row",
             ),
             Row(
-                Column("angle3", css_class="col-md-3"),
-                Column("angle3_min", css_class="col-md-3"),
-                Column("angle3_max", css_class="col-md-3"),
+                Column("angle3", css_class="col-md-2"),
+                Column("angle3_min", css_class="col-md-2"),
+                Column("angle3_max", css_class="col-md-2"),
+                Column("a3", css_class="col-md-2"),
                 Column("len3", css_class="col-md-3"),
                 css_class="form-row",
             ),
             Row(
-                Column("angle4", css_class="col-md-3"),
-                Column("angle4_min", css_class="col-md-3"),
-                Column("angle4_max", css_class="col-md-3"),
+                Column("angle4", css_class="col-md-2"),
+                Column("angle4_min", css_class="col-md-2"),
+                Column("angle4_max", css_class="col-md-2"),
+                Column("a4", css_class="col-md-2"),
                 Column("len4", css_class="col-md-3"),
                 css_class="form-row",
             ),
             Row(
-                Column("angle5", css_class="col-md-3"),
-                Column("angle5_min", css_class="col-md-3"),
-                Column("angle5_max", css_class="col-md-3"),
+                Column("angle5", css_class="col-md-2"),
+                Column("angle5_min", css_class="col-md-2"),
+                Column("angle5_max", css_class="col-md-2"),
+                Column("a5", css_class="col-md-2"),
                 Column("len5", css_class="col-md-3"),
                 css_class="form-row",
             ),
