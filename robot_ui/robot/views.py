@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django_htmx.http import (
     trigger_client_event,
-    HttpResponseClientRedirect,
     HttpResponseClientRefresh,
 )
 from .forms import PositionForm, RobotForm

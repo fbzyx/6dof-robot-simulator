@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  web:
+    build: ./robot_ui
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./robot_ui/:/usr/src/app/
+    ports:
+      - 8000:8000

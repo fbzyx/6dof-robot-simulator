@@ -1,5 +1,3 @@
-drone_service/.env
-drone_service/.env.prod
 .kube/
 .DS_Store
 .idea/
