@@ -153,7 +153,6 @@
         var angle4 = parseInt(data.angle4);
         var angle5 = parseInt(data.angle5);
 
-
         var scene = new THREE.Scene();
 
         const size = 10;
@@ -180,16 +179,13 @@
         // 4. Append canvas to specific div
         //document.getElementById('three-container').appendChild(renderer.domElement);
 
-
         const container = document.getElementById('three-container');
         const width = container.clientWidth;
         const height = container.clientHeight;
         renderer.setSize(width, height);
         container.appendChild(renderer.domElement);
 
-
         var controls = new THREE.OrbitControls(camera, renderer.domElement);
-
 
         // Model:
         var material0 = new THREE.MeshStandardMaterial();
@@ -204,7 +200,6 @@
         material4.color.setHex(0xe800e4)
         var material5 = new THREE.MeshStandardMaterial();
         material5.color.setHex(0xc52828)
-
 
         // part 0
         var geometry = new THREE.BoxGeometry( 2, 1, 2 );
@@ -233,7 +228,6 @@
         arm_part.translateY(1);
         part2.add(arm_part);
 
-
         // part 3
 
         var part3 = new THREE.Object3D();
@@ -244,7 +238,6 @@
         var arm_part = new THREE.Mesh( geometry, material3 );
         arm_part.translateY(1);
         part3.add(arm_part);
-
 
         // part 4
 
@@ -268,7 +261,6 @@
         arm_part.translateY(0.5);
         part5.add(arm_part);
 
-
         // Light
         var light = new THREE.DirectionalLight(0xffffff, 1.0);
         light.position.set(10, 5, 10);
@@ -277,7 +269,6 @@
 
         light = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(light);
-
 
         // Options
         var options = {
@@ -288,7 +279,6 @@
           part4: angle4,
           part5: angle5,
         };
-
 
         // Rendering
         var zAxis = new THREE.Vector3(0, 0, 1);
@@ -356,9 +346,6 @@
         }
 
         function get_path_for_position(pos_id, target_pos_angles){
-
-            console.log(pos_id, target_pos_angles);
-
             var current_position = get_range_inputs_values();
 
             /*
@@ -423,48 +410,16 @@
 
                            update_matrix();
                     }
-
                     current_step++;
                     last_update = time;
                 }
-                /*
-                for (let i = 0; i < start_angles.length; i++) {
-                const angle = lerp(start_angles[i], end_angles[i], t);
-                switch(i) {
-                  case 0:
-                    document.getElementById("range0").value = angle;
-                    break;
-                  case 1:
-                    document.getElementById("range1").value = angle;
-                    break;
-                  case 2:
-                      document.getElementById("range2").value = angle;
-                    break;
-                  case 3:
-                      document.getElementById("range3").value = angle;
-                    break;
-                  case 4:
-                      document.getElementById("range4").value = angle;
-                    break;
-                  case 5:
-                      document.getElementById("range5").value = angle;
-                    break;
-                    }
+                if (current_step <= total_steps) {
+                    requestAnimationFrame(animate);
                 }
-                if (t < 1) requestAnimationFrame(animate);
-                */
-              if (current_step <= total_steps) {
-                requestAnimationFrame(animate);
-              }
             }
 
             requestAnimationFrame(animate);
         }
-
-
-
-
-
 
     </script>
     <script>

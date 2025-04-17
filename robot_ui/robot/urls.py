@@ -21,7 +21,8 @@ urlpatterns = [
     path("delete-position/<int:id>/", delete_position, name="delete-position"),
     path("api/dhmatrix/", dh_matrix_api, name="dh_matrix_api"),
     path("get-matrix-path/", get_matrix_path, name="get-matrix-path"),
+    path("api/dhmatrix/", dh_matrix_api, name="dh_matrix_api"),
     # test
     path("robotmodel/", robot_model, name="robot-model"),
-    path("api/dhmatrix/", dh_matrix_api, name="dh_matrix_api"),
+
 ]
