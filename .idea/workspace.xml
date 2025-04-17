@@ -26,28 +26,28 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2vlpTXVaMPRxlgCCCvMx7lcSrLU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.interpolate.executor": "Run",
-    "Python.makemigrations.executor": "Run",
-    "Python.manage.executor": "Run",
-    "Python.migrate.executor": "Run",
-    "Python.runserver.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/franzbusche/Documents/Python/6dof-robot/robot_ui/templates/partials"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.interpolate.executor&quot;: &quot;Run&quot;,
+    &quot;Python.makemigrations.executor&quot;: &quot;Run&quot;,
+    &quot;Python.manage.executor&quot;: &quot;Run&quot;,
+    &quot;Python.migrate.executor&quot;: &quot;Run&quot;,
+    &quot;Python.runserver.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/franzbusche/Documents/Python/6dof-robot/robot_ui/templates/partials&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/robot_ui/templates/partials" />
@@ -181,9 +181,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.interpolate" />
       <item itemvalue="Python.makemigrations" />
       <item itemvalue="Python.migrate" />
-      <item itemvalue="Python.interpolate" />
       <item itemvalue="Python.runserver" />
     </list>
     <recent_temporary>
