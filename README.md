@@ -39,7 +39,6 @@ cd robot_ui
 ```
 Next, install the project requirements:
 ```
-cd robot_ui
 pip install -r requirements.txt 
 ```
 Finally, execute the following command to run the teste (from the **robot_ui/** folder):
