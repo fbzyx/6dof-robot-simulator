@@ -130,12 +130,33 @@ class PositionForm(forms.ModelForm):
         }
         self.helper.layout = Layout(
             Row(
-                Column("angle0", css_class="col-12"),
-                Column("angle1", css_class="col-12"),
-                Column("angle2", css_class="col-12"),
-                Column("angle3", css_class="col-12"),
-                Column("angle4", css_class="col-12"),
-                Column("angle5", css_class="col-12"),
+                Column("angle0", css_class="col-md-8"),
+                Column(css_class="col-md-4", css_id="id_output_range0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("angle1", css_class="col-md-8"),
+                Column(css_class="col-md-4", css_id="id_output_range1"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("angle2", css_class="col-md-8"),
+                Column(css_class="col-md-4", css_id="id_output_range2"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("angle3", css_class="col-md-8"),
+                Column(css_class="col-md-4", css_id="id_output_range3"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("angle4", css_class="col-md-8"),
+                Column(css_class="col-md-4", css_id="id_output_range4"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("angle5", css_class="col-md-8"),
+                Column(css_class="col-md-4", css_id="id_output_range5"),
                 css_class="form-row",
             ),
             Submit(

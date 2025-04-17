@@ -35,7 +35,7 @@
     </style>
   </head>
   <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-light bg-gradient">
-    <div class="" style="max-width:1200px;margin-left:auto; margin-right:auto;">
+    <div class="" style="max-width:1000px;margin-left:auto; margin-right:auto;">
         <div class="row">
             <div class="col-12">
                 <h5></h5>
@@ -43,14 +43,14 @@
         </div>
         <div class="row">
             <div class="col-md-8 border p-3">
-                <h3>Simulation</h3>
+                <h4>6-DOF Robot simulation</h4>
                 <div id="three-container" style="height:400px">
                 </div>
             </div>
             <div class="col-md-4 border p-3">
-                <h3>Controls</h3>
+                <h4>Controls</h4>
                 <div style="">
-                    <div class="row">
+                    <div class="row small">
                         {% include 'partials/form.html' %}
                     </div>
                 </div>
@@ -58,15 +58,15 @@
         </div>
         <div class="row mt-5">
             <div class="col-md-4 border p-3">
-                <h3>Denavit-Hartenberg-Transformation</h3>
-                <div id="jacobi-matrix-display">
+                <h4>Denavit-Hartenberg-Transformation</h4>
+                <div id="jacobi-matrix-display" class="small">
                     <pre id="json-output"></pre>
                 </div>
             </div>
             <div class="col-md-4 border p-3">
-                <h3>Robot parameters</h3>
+                <h4>Robot parameters</h4>
                 <button class="btn btn-sm btn-success bg-gradient" data-bs-toggle="modal" data-bs-target="#modal-lg-id">Change parameters</button>
-                <div>
+                <div class="small">
                     <table class="table">
                         <thead>
                             <th class="bg-light"></th>
@@ -123,8 +123,8 @@
                 </div>
             </div>
             <div class="col-md-4 border p-3">
-                <h3>Positions</h3>
-                <div id="position-list-container" class="pe-2">
+                <h4>Positions</h4>
+                <div id="position-list-container" class="pe-2 small">
                     {% include 'partials/list.html' %}
                 </div>
             </div>
@@ -304,6 +304,13 @@
           part4.setRotationFromAxisAngle(yAxis, range4 * Math.PI / 180)
           var range5 = parseInt(document.getElementById("range5").value, 10);
           part5.setRotationFromAxisAngle(zAxis, range5 * Math.PI / 180)
+
+          document.getElementById('id_output_range0').innerHTML = '<p class="fw-bold text-success fs-3">'+range0+'º</p>';
+          document.getElementById('id_output_range1').innerHTML = '<p class="fw-bold text-success fs-3">'+range1+'º</p>';
+          document.getElementById('id_output_range2').innerHTML = '<p class="fw-bold text-success fs-3">'+range2+'º</p>';
+          document.getElementById('id_output_range3').innerHTML = '<p class="fw-bold text-success fs-3">'+range3+'º</p>';
+          document.getElementById('id_output_range4').innerHTML = '<p class="fw-bold text-success fs-3">'+range4+'º</p>';
+          document.getElementById('id_output_range5').innerHTML = '<p class="fw-bold text-success fs-3">'+range5+'º</p>';
 
           // Render
           renderer.render( scene, camera );

@@ -74,24 +74,8 @@ def list_positions(request):
     return render(request, "partials/list.html", context)
 
 
-def main_view2(request):
-    return render(request, "index2.html")
-
-
-def main_view3(request):
-    return render(request, "index3.html")
-
-
-def main_view4(request):
-    return render(request, "index4.html")
-
-
-def move_func(request):
-    return JsonResponse({})
-
-
-def get_matrix(request):
-    return JsonResponse({})
+def robot_model(request):
+    return render(request, "robot-model.html")
 
 
 @csrf_exempt
@@ -105,7 +89,6 @@ def dh_matrix_api(request):
 
 @csrf_exempt
 def get_matrix_path(request):
-    print(request.POST)
     if request.method == "POST":
         data = json.loads(request.POST["data"])
         joint_angles = data.get("joint_angles", [])
