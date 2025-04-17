@@ -5,8 +5,6 @@
 #### A simple 6-axis robot simulator. Built with python and Django on the backend, HTMX, HTML with Bootstrap for styling and THREE.js for displaying the robot.
 
 
-## Features
-
 ## How to run
 
 You must have Docker installed.
