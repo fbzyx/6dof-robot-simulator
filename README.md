@@ -39,7 +39,7 @@ Next, install the project requirements:
 ```
 pip install -r requirements.txt 
 ```
-Finally, execute the following command to run the teste (from the **robot_ui/** folder):
+Finally, execute the following command to run the tests (from the **robot_ui/** folder):
 ```
 python manage.py test
 ```
