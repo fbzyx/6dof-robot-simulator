@@ -8,7 +8,7 @@
 *.pot
 *.pyc
 __pycache__
-db.sqlite3
+# db.sqlite3
 media
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
@@ -75,8 +75,8 @@ cover/
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
-db.sqlite3-journal
+#db.sqlite3
+#db.sqlite3-journal
 
 # Flask stuff:
 instance/
