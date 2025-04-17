@@ -9,6 +9,8 @@
 
 ## How to run
 
+You must have Docker installed.
+
 Clone this code repository:
 ```
 https://github.com/fbzyx/6dof-robot-simulator.git
@@ -29,8 +31,12 @@ First, in the root directory (**6dof-robot-simulator/**) create and activate a v
 python -m venv venv 
 source venv/bin/activate
 ```
-You should now have a virtual environment in a venv folder inside the **robot_ui/** folder.
+You should now have a virtual environment in a venv folder inside the **6dof-robot-simulator/** folder.
 
+Go inside the **robot_ui/** folder:
+```
+cd robot_ui
+```
 Next, install the project requirements:
 ```
 cd robot_ui
