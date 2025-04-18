@@ -270,16 +270,6 @@
         light = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(light);
 
-        // Options
-        var options = {
-          part0: angle0,
-          part1: angle1,
-          part2: angle2,
-          part3: angle3,
-          part4: angle4,
-          part5: angle5,
-        };
-
         // Rendering
         var zAxis = new THREE.Vector3(0, 0, 1);
         var yAxis = new THREE.Vector3(0, 1, 0);
@@ -365,7 +355,7 @@
             var start_angles = current_position;
 
 
-            const total_steps = 100;
+            const total_steps = 200;
             const duration = 3000; // in ms
             const step_duration = duration / total_steps; // 30 ms per step
             let current_step = 0;
@@ -386,7 +376,7 @@
                     const t = current_step / total_steps;
 
                     for (let i = 0; i < start_angles.length; i++) {
-                        const angle = lerp(start_angles[i], end_angles[i], t);
+                        const angle = (lerp(start_angles[i], end_angles[i], t)|0);
                         switch(i) {
                           case 0:
                             document.getElementById("range0").value = angle;
@@ -417,7 +407,6 @@
                     requestAnimationFrame(animate);
                 }
             }
-
             requestAnimationFrame(animate);
         }
 
